@@ -118,7 +118,7 @@
                                     <td>${m.working}</td>
                                     <td>${m.available}</td>
                                     <td align="center">  
-                                        <form:checkbox path="copies[${rentObject.copies.size()}].copyID"   
+                                        <form:checkbox path="copies"   
                                                        value="${m}.copyID"/>  
                                         
                                     </td>
