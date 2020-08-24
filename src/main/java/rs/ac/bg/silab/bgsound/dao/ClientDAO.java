@@ -14,7 +14,6 @@ import rs.ac.bg.silab.bgsound.entity.Client;
 public interface ClientDAO {
     void saveClient(Client client);
     List<Client> returnAllClients() ;
-    List<Client> returnByName(String name);
     Client returnByID(int id);
      boolean deleteClient(int  client) ;
     Client updateClient(Client client);

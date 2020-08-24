@@ -13,12 +13,13 @@ public class EquipmentValidator
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Equipment.class.equals(clazz);
+        // return Equipment.class.equals(clazz);
+        return true;
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-         Equipment eq= (Equipment)target;
+        Equipment eq = (Equipment) target;
 
         System.out.println("Validating equipment: " + eq);
 

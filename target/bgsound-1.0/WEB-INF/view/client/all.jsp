@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet"
@@ -14,6 +15,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
 <html>
+        <title>All Clients</title>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tabela').DataTable({
@@ -43,9 +45,10 @@
                     <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/equipment/add">Add equipment</a></li>
                         <li><a href="${pageContext.request.contextPath}/equipment/all">View equipment</a></li>
+                        <li><a href="${pageContext.request.contextPath}/producer/add">Add producer</a></li>
                     </ul></li>
                 <li><a href="${pageContext.request.contextPath}/rent/rent">Rent</a></li>
-                <li><a href="${pageContext.request.contextPath}/rent/discharge">Discharge</a></li>
+                <li><a href="${pageContext.request.contextPath}/rent/discharge">Discharge Rents</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <form:form action="${pageContext.request.contextPath}/logout" 
@@ -75,6 +78,7 @@
                             <th scope="col">Client name</th>
                             <th scope="col">Surname</th>
                             <th scope="col">JMBG</th>
+                            <th scope="col">Phone</th>
                             <th scope="col">Options</th>
                         </tr>
                     </thead>
@@ -88,6 +92,7 @@
                                 <td>${client.name}</td>
                                 <td>${client.surname}</td>
                                 <td>${client.JMBG}</td>
+                                <td>${client.phone}</td>
                                 <td>
                                     <div class="dropdown">
                                         <a class="btn btn-danger" href="<c:url value = "/client/${client.clientID}/delete/">

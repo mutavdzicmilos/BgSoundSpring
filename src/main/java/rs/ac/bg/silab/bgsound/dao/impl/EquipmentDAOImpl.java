@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import rs.ac.bg.silab.bgsound.dao.EquipmentDAO;
+import rs.ac.bg.silab.bgsound.entity.Copy;
 import rs.ac.bg.silab.bgsound.entity.Equipment;
+import rs.ac.bg.silab.bgsound.entity.EquipmentType;
+import rs.ac.bg.silab.bgsound.entity.Producer;
 
 /**
  *
@@ -32,13 +35,10 @@ public class EquipmentDAOImpl implements EquipmentDAO {
     @Transactional(propagation = Propagation.REQUIRED)//ako postoi u okviru nje, ako ne bez
     @Override
     public List<Equipment> getAll() {
-        System.out.println("TransactionSynchronizationManager.isActualTransactionActive(): " + TransactionSynchronizationManager.isActualTransactionActive());
-        System.out.println("TransactionAspectSupport.currentTransactionStatus(): " + TransactionAspectSupport.currentTransactionStatus().isNewTransaction());
         if (TransactionSynchronizationManager.isActualTransactionActive()) {
             TransactionStatus status = TransactionAspectSupport.currentTransactionStatus();
         }
 
-        System.out.println("com.fon.silab.spring.springjpa.repository.impl.UserRepositoryImpl.getAll()");
         String query = "select e from Equipment e";
         return entityManager.createQuery(query, Equipment.class).getResultList();
 
@@ -46,12 +46,19 @@ public class EquipmentDAOImpl implements EquipmentDAO {
 
     @Override
     public Equipment getByID(int id) {
-        return entityManager.find(Equipment.class, id);
+        Equipment e = entityManager.find(Equipment.class, id);
+        return e;
 
     }
 
     @Override
     public void setEquipment(Equipment equipment) {
+        int id= equipment.getProducer().getProducerid();
+        Producer prod=entityManager.find(Producer.class, id);
+        equipment.setProducer(prod);
+        id= equipment.getType().getEquipmentTypeID();
+        EquipmentType type= entityManager.find(EquipmentType.class, id);
+        equipment.setType(type);
         entityManager.merge(equipment);
     }
 
@@ -63,8 +70,15 @@ public class EquipmentDAOImpl implements EquipmentDAO {
     }
 
     @Override
-    public Equipment changeEquipment(Equipment equipment) {
-        return entityManager.merge(equipment);
+    public void changeEquipment(Equipment equipment) {
+
+       int id= equipment.getProducer().getProducerid();
+        Producer prod=entityManager.find(Producer.class, id);
+        equipment.setProducer(prod);
+        id= equipment.getType().getEquipmentTypeID();
+        EquipmentType type= entityManager.find(EquipmentType.class, id);
+        equipment.setType(type);
+        entityManager.merge(equipment);
     }
 
     @Override

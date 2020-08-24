@@ -97,4 +97,9 @@ public class Worker implements Serializable {
         this.enabled = enabled;
     }
 
+    @Override
+    public String toString() {
+        return "Worker{" + "username=" + username + ", password=" + password + ", name=" + name + ", surname=" + surname + ", JMBG=" + JMBG + ", enabled=" + enabled + '}';
+    }
+
 }

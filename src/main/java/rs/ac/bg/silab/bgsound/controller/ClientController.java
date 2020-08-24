@@ -97,6 +97,8 @@ public class ClientController {
             return "redirect:/client/add";
         }
     }
+    
+    //pozabavi se porukom
       @PostMapping(value = "/{numberId}/saved")
     public String saved(@ModelAttribute(name = "client") @Validated Client client, BindingResult result, Model model, RedirectAttributes redirectAttributes,@PathVariable(name = "numberId") int numberId) {
         System.out.println("===================================================================================");

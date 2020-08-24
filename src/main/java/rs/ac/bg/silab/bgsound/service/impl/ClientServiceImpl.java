@@ -41,11 +41,6 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> returnByName(String name) {
-        return storageClient.returnByName(name);
-    }
-
-    @Override
     public Client returnByID(int id) {
         return storageClient.returnByID(id);
     }

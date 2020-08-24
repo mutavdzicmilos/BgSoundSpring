@@ -6,11 +6,15 @@
 package rs.ac.bg.silab.bgsound.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -33,32 +37,19 @@ public class Client implements Serializable {
     private Integer clientID;
     @Column(name = "phone")
     private String phone;
-  
+    @OneToMany(mappedBy = "client", cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private List<Rent> rents;
+
+    public Client(String name, String surname, String JMBG, Integer clientID, String phone, List<Rent> rents) {
+        this.name = name;
+        this.surname = surname;
+        this.JMBG = JMBG;
+        this.clientID = clientID;
+        this.phone = phone;
+        this.rents = rents;
+    }
 
     public Client() {
-    }
-
-    public Client(Integer clientID) {
-        this.clientID = clientID;
-    }
-
-    public Client(String name, String surname, String JMBG, Integer clientID, String phone) {
-        this.name = name;
-        this.surname = surname;
-        this.JMBG = JMBG;
-        this.clientID = clientID;
-        this.phone = phone;
-    }
-
-    public Client(String name, String surname, String JMBG, String phone) {
-        this.name = name;
-        this.surname = surname;
-        this.JMBG = JMBG;
-        this.phone = phone;
-    }
-
-    public Client(String name, String surname, Object object, Integer cid, Object object0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getName() {
@@ -103,7 +94,22 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return name + " " + surname;
+        return clientID + " " + name + " " + surname;
     }
 
+    public List<Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(List<Rent> rents) {
+        this.rents = rents;
+    }
+
+    public void add(Rent rent) {
+        if (rents == null) {
+            rents = new ArrayList<>();
+        }
+        rents.add(rent);
+        rent.setClient(this);
+    }
 }

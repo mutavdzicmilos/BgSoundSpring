@@ -49,8 +49,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public Equipment changeEquipment(Equipment equipment) {
-        return storageEquipment.changeEquipment(equipment);
+    public void changeEquipment(Equipment equipment) {
+        storageEquipment.changeEquipment(equipment);
     }
 
     @Override

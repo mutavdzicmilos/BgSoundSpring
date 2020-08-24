@@ -2,8 +2,10 @@
          pageEncoding="ISO-8859-1"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-
-<html><head><nav class="navbar navbar-inverse">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html>
+        <title>Clients Home</title>
+    <head><nav class="navbar navbar-inverse">
 
             <div class="container-fluid">
                 <div class="navbar-header">

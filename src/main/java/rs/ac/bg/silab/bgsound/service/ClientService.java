@@ -18,7 +18,6 @@ public interface ClientService {
 
     List<Client> returnAllClients();
 
-    List<Client> returnByName(String name);
 
     Client returnByID(int id);
 

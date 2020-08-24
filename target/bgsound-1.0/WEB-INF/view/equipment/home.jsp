@@ -2,6 +2,8 @@
          pageEncoding="ISO-8859-1"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 
 <html><head><nav class="navbar navbar-inverse">
 
@@ -23,9 +25,10 @@
                     <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/equipment/add">Add equipment</a></li>
                         <li><a href="${pageContext.request.contextPath}/equipment/all">View equipment</a></li>
+                        <li><a href="${pageContext.request.contextPath}/producer/add">Add producer</a></li>
                     </ul></li>
                 <li><a href="${pageContext.request.contextPath}/rent/rent">Rent</a></li>
-                <li><a href="${pageContext.request.contextPath}/rent/discharge">Discharge</a></li>
+                <li><a href="${pageContext.request.contextPath}/rent/discharge">Discharge Rents</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <form:form action="${pageContext.request.contextPath}/logout" 

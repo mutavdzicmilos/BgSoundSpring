@@ -50,12 +50,7 @@ public class ClientDAOImpl implements ClientDAO {
 
     }
 
-    @Override
-    public List<Client> returnByName(String name) {
-        //popraviti
-        String query = "select c from Client c where name like ";
-        return entityManager.createQuery(query, Client.class).getResultList();
-    }
+  
 
     @Override
     public Client returnByID(int id) {

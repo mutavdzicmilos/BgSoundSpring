@@ -22,7 +22,7 @@ public interface EquipmentService {
 
     List<Equipment> getByName(String Name);
 
-    Equipment changeEquipment(Equipment equipment);
+    void changeEquipment(Equipment equipment);
 
     boolean delete(int id);
 }

@@ -16,12 +16,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
 @PropertySource("classpath:persistence-mysql.properties")
@@ -46,6 +47,12 @@ public class DatabaseConfiguration {
         return viewResolver;
     }
 
+     @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
+    }
+
+    
     // define a bean for our security datasource
     @Bean
     public DataSource dataSource() {
@@ -72,6 +79,19 @@ public class DatabaseConfiguration {
         securityDataSource.setUser(env.getProperty("jdbc.user"));
         securityDataSource.setPassword(env.getProperty("jdbc.password"));
 
+        securityDataSource.setInitialPoolSize(
+				getIntProperty("connection.pool.initialPoolSize"));
+
+		securityDataSource.setMinPoolSize(
+				getIntProperty("connection.pool.minPoolSize"));
+
+		securityDataSource.setMaxPoolSize(
+				getIntProperty("connection.pool.maxPoolSize"));
+
+		securityDataSource.setMaxIdleTime(
+				getIntProperty("connection.pool.maxIdleTime"));
+		
+        
         return securityDataSource;
     }
 
@@ -105,4 +125,14 @@ public class DatabaseConfiguration {
         transactionManager.setEntityManagerFactory(emf);
         return transactionManager;
     }
+    
+	private int getIntProperty(String propName) {
+		
+		String propVal = env.getProperty(propName);
+		
+		// now convert to int
+		int intPropVal = Integer.parseInt(propVal);
+		
+		return intPropVal;
+	}
 }
