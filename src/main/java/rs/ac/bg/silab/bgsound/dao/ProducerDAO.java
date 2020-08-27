@@ -20,4 +20,8 @@ public interface ProducerDAO {
     public List<Producer> getAll();
 
     public List<EquipmentType> getAllTypes();
+
+    public Producer getProducer(int id);
+
+    public EquipmentType getType(int id);
 }

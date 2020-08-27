@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import rs.ac.bg.silab.bgsound.entity.Client;
 import rs.ac.bg.silab.bgsound.entity.Equipment;
 
 @Component
@@ -13,25 +12,26 @@ public class EquipmentValidator
 
     @Override
     public boolean supports(Class<?> clazz) {
-        // return Equipment.class.equals(clazz);
-        return true;
+        return Equipment.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        Equipment eq = (Equipment) target;
+        Equipment equipment = (Equipment) target;
 
-        System.out.println("Validating equipment: " + eq);
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "eq.name.empty", "Morate uneti ime");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "connection", "eq.connection.empty", "Morate uneti konekciju");
-
+        System.out.println("Validating equipment: " + equipment);
+        if (equipment.getName().length() < 2) {
+            errors.rejectValue("name", "equipment.name.size", "2 letters minimum");
+        }
+        if (equipment.getSpecification().length() < 2) {
+            errors.rejectValue("specification", "equipment.specification.size", "2 letters minimum");
+        }
+        if (equipment.getConnection().length() < 2) {
+            errors.rejectValue("connection", "client.connection.size", "2 letters minimum");
+        }
+        
         if (errors.hasErrors()) {
             return;
-        }
-
-        if (eq.getName().length() < 2) {
-            errors.rejectValue("name", "eq.name.size", "Ime mora imati najmanje 2 a najvise 30 znakova");
         }
 
     }

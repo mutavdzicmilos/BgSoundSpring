@@ -12,8 +12,20 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
-<html>
-    <title>Rent equipment</title>
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
+    <title>Rent</title>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tabela').DataTable({
@@ -63,8 +75,8 @@
         <div class="row content">
             <div class="col-sm-3 sidenav">
 
-                <form:form action="${pageContext.request.contextPath}/rent/save" method="post" modelAttribute="rentObject">
-                    <label>Select client:</label>
+                <form:form action="${pageContext.request.contextPath}/rent/save" enctype="multipart/form-data" method="post" modelAttribute="rentObject">
+                    <div>Select client:</div>
                  <form:select path="client.clientID">
                 <div class="container-fluid">
                     <c:forEach
@@ -77,7 +89,6 @@
                     </c:forEach>
 
                 </form:select>
-                        </hr>
                         <div>Date from:</div>
                         <div><form:input type="date" id="dateFrom" path="dateFrom"/></div>
                     <div class="text-danger">
@@ -102,24 +113,22 @@
                             <tr>
                                 <th scope="col">Copy ID</th>
                                 <th scope="col">Equipment name</th>
+                                <th scope="col">Equipment picture</th>
                                 <th scope="col">Defect</th>
-                                <th scope="col">Working</th>
-                                <th scope="col">Available</th>
                                 <th scope="col">Rent</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${copies}" var="m" varStatus="loop">
+                            <c:forEach items="${copiesAll}" var="m" varStatus="loop">
                                 <tr>
                                     <td>${m.copyID}</td>
                                     <td>${m.equipment.name}</td>
-                                    
+                                     <td> 
+                                         <a href="${pageContext.request.contextPath}/equipment/${m.equipment.equipmentID}/picture"  target="_blank">Show picture</a>
+                                     </td>
                                     <td>${m.defect}</td>
-                                    <td>${m.working}</td>
-                                    <td>${m.available}</td>
                                     <td align="center">  
-                                        <form:checkbox path="copies"   
-                                                       value="${m}.copyID"/>  
+                                        <form:checkbox path="copies" value="${m}"/>  
                                         
                                     </td>
                                 </tr>

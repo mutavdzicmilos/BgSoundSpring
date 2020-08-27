@@ -1,6 +1,8 @@
 package rs.ac.bg.silab.bgsound.controller;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,7 +68,6 @@ public class ClientController {
     @GetMapping(value = "/{numberId}/view")
     public ModelAndView view(@PathVariable(name = "numberId") int numberId) {
         ModelAndView modelAndView = new ModelAndView("client/view");
-        modelAndView.addObject("message", "Client " + numberId + "!");
         modelAndView.addObject("client", serviceClient.returnByID(numberId));
         return modelAndView;
     }
@@ -81,12 +82,11 @@ public class ClientController {
     }
 
     @PostMapping(value = "save")
-    public String save(@ModelAttribute(name = "clientObject") @Validated Client client, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@Validated @ModelAttribute(name = "clientObject") Client client, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         System.out.println("===================================================================================");
         System.out.println("====================   ClientController: save(@ModelAttribute)    ===================");
         System.out.println("===================================================================================");
         System.out.println(client);
-        ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
             model.addAttribute("invalid", "One or more fields are invalid");
             model.addAttribute("clientObject", client);
@@ -97,24 +97,22 @@ public class ClientController {
             return "redirect:/client/add";
         }
     }
-    
+
     //pozabavi se porukom
-      @PostMapping(value = "/{numberId}/saved")
-    public String saved(@ModelAttribute(name = "client") @Validated Client client, BindingResult result, Model model, RedirectAttributes redirectAttributes,@PathVariable(name = "numberId") int numberId) {
+    @PostMapping(value = "/{numberId}/saved")
+    public String saved(@ModelAttribute(name = "client") @Validated Client client, BindingResult result, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes, @PathVariable(name = "numberId") int numberId) {
         System.out.println("===================================================================================");
         System.out.println("====================   ClientController: save(@ModelAttribute)    ===================");
         System.out.println("===================================================================================");
         System.out.println(client);
-        client.setClientID(numberId);
-        ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
-            model.addAttribute("invalid", "One or more fields are invalid");
+            model.addAttribute("message", "One or more fields are invalid");
             model.addAttribute("client", client);
-            return "client/all";
+            return "client/view";
         } else {
             serviceClient.saveClient(client);
-            redirectAttributes.addFlashAttribute("message", "Client is saved");
-            return "redirect:/client/all";
+           model.addAttribute("message", "Client is saved");
+            return "client/view";
         }
     }
 
@@ -122,18 +120,16 @@ public class ClientController {
     private List<Client> getClients() {
         return serviceClient.returnAllClients();
     }
-    
-    
+
     @ModelAttribute(name = "client")
     private Client clientNew() {
         return new Client();
     }
-    
+
     @ModelAttribute(name = "clientObject")
     private Client clientobj() {
         return new Client();
     }
-   
 
     @ExceptionHandler(NullPointerException.class)
     public String exceptionHandler(NullPointerException nullPointerException, RedirectAttributes redirectAttributes) {

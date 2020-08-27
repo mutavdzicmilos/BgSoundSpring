@@ -5,7 +5,29 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 
-<html><head><nav class="navbar navbar-inverse">
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <title>Equipment home</title>
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
+    
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <head><nav class="navbar navbar-inverse">
 
         <div class="container-fluid">
             <div class="navbar-header">

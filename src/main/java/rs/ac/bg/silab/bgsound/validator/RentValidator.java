@@ -20,20 +20,14 @@ public class RentValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return true;
-    //   return Rent.class.equals(clazz);
+       return Rent.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-     /*   Rent rent = (Rent) target;
+       Rent rent = (Rent) target;
         System.out.println("Validating rent: " + rent);
 
-        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "client.name.empty", "Morate uneti ime");
-        //  ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "client.surname.empty", "Morate uneti prezime");
-        if (errors.hasErrors()) {
-            return;
-        }*/
-
+        
     }
 }

@@ -44,6 +44,10 @@ public class Copy implements Serializable {
         
     }
 
+    public Copy(Integer copyID) {
+        this.copyID = copyID;
+    }
+
     public Integer getCopyID() {
         return copyID;
     }
@@ -102,9 +106,10 @@ public class Copy implements Serializable {
 
     @Override
     public String toString() {
-        return "Copy{" + ", copyID=" + copyID ;
+        return "Copy{" + "copyID=" + copyID + ", working=" + working + ", available=" + available + ", defect=" + defect + '}';
     }
 
+    
    
 
 }

@@ -16,6 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -24,8 +28,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "client")
 public class Client implements Serializable {
-
     @Column(name = "name")
+    @Size(min = 3)
     private String name;
     @Column(name = "surname")
     private String surname;

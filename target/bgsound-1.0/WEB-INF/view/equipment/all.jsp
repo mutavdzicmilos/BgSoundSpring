@@ -15,7 +15,20 @@
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
-<html>
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <title>All equipment</title>
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tabela').DataTable({
@@ -92,8 +105,7 @@
                             <tr>
                                 <td>${equipment.equipmentID}</td>
                                 <td>${equipment.name}</td>
-                            <!--    <td> <img src="data:image/jpg;base64,${pictures}" width="240" height="300"/></td>--->
-                                <td>   <a href="${pageContext.request.contextPath}/equipment/${equipment.equipmentID}/picture">Show picture</a></td>
+                                <td>   <a href="${pageContext.request.contextPath}/equipment/${equipment.equipmentID}/picture"  target="_blank">Show picture</a></td>
                                 <td>${equipment.connection}</td>
                                 <td>${equipment.specification}</td>
                                 <td>

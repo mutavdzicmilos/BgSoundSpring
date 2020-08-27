@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import rs.ac.bg.silab.bgsound.entity.Copy;
-import rs.ac.bg.silab.bgsound.entity.Equipment;
 import rs.ac.bg.silab.bgsound.service.CopyService;
 import rs.ac.bg.silab.bgsound.validator.CopyValidator;
 

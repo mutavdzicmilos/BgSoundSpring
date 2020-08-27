@@ -5,7 +5,20 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 
-<html>
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <title>Add client</title>
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
     <title>Add Client</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

@@ -8,9 +8,12 @@ package rs.ac.bg.silab.bgsound.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -35,7 +38,9 @@ public class Worker implements Serializable {
     private String JMBG;
     @Column(name = "enabled")
     private byte enabled;
-        
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username")
+    private Authority authority;
     
     public Worker(String username, String password, String name, String surname, String JMBG, byte enabled) {
         this.username = username;
@@ -99,7 +104,15 @@ public class Worker implements Serializable {
 
     @Override
     public String toString() {
-        return "Worker{" + "username=" + username + ", password=" + password + ", name=" + name + ", surname=" + surname + ", JMBG=" + JMBG + ", enabled=" + enabled + '}';
+        return "Worker :" + name + ", surname=" + surname ;
+    }
+
+    public Authority getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 
 }

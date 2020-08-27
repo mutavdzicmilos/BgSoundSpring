@@ -52,12 +52,12 @@ public class ProducerController {
         System.out.println(producer);
         ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
-            model.addAttribute("invalid", "One or more fields are invalid");
+            model.addAttribute("message", "One or more fields are invalid");
             model.addAttribute("producerObject", producer);
             return "producer/add";
         } else {
             producerService.save(producer);
-            redirectAttributes.addFlashAttribute("message", "Producer is saved");
+            model.addAttribute("message", "Producer is saved");
             return "redirect:/producer/add";
         }
     }

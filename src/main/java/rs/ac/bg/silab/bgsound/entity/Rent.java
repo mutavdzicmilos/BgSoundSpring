@@ -48,7 +48,7 @@ public class Rent implements Serializable {
     private Client client;
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.PERSIST})
     @JoinColumn(name = "rentid", referencedColumnName = "rentID")
-    private List<Copy> copies=new ArrayList<>();
+    private List<Copy> copies;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userID", referencedColumnName = "username")
@@ -72,7 +72,7 @@ public class Rent implements Serializable {
 
     public Date getDateTo() {
         return dateTo;
-   
+
     }
 
     public void setDateTo(Date dateTo) {
@@ -95,6 +95,16 @@ public class Rent implements Serializable {
         this.copies = copies;
     }
 
+    public void setCopies(int copiesNo) {
+        if (copies == null) {
+            copies = new ArrayList<>();
+        }
+        for (int i = 0; i < copiesNo; i++) {
+            Copy c = new Copy();
+            this.copies.add(c);
+        }
+    }
+
     public Worker getWorker() {
         return worker;
     }
@@ -104,6 +114,7 @@ public class Rent implements Serializable {
     }
 
     public Rent() {
+        this.copies = new ArrayList<>();
     }
 
     public Rent(int rentID, Date dateFrom, Date dateTo, Client client, List<Copy> copies, Worker worker) {

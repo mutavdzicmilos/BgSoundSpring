@@ -26,7 +26,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 
 @Configuration
 @PropertySource("classpath:persistence-mysql.properties")
-public class DatabaseConfiguration {
+public class DatabaseConfiguration{
 
     // set up variable to hold the properties
     @Autowired
@@ -46,7 +46,7 @@ public class DatabaseConfiguration {
 
         return viewResolver;
     }
-
+    
      @Bean
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();

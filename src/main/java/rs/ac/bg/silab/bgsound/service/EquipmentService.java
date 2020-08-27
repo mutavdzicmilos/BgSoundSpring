@@ -18,7 +18,7 @@ public interface EquipmentService {
 
     Equipment getByID(int id);
 
-    void setEquipment(Equipment equipment);
+    void saveEquipment(Equipment equipment);
 
     List<Equipment> getByName(String Name);
 

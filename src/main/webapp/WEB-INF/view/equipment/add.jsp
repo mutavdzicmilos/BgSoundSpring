@@ -10,8 +10,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<html>
-    <title>Add producer</title>
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
+    <title>Add equipment</title>
     <head><nav class="navbar navbar-inverse">
 
         <div class="container-fluid">
@@ -73,7 +85,7 @@
                 <form:errors path="specification" cssClass="error" />
             </div>
             <div>Number of copies</div>
-            <div><input type="number" id="copies" name="copiesNo"/></div>
+            <div><input type="number" id="copies" name="copiesNo" value="0"/></div>
 
 
             <div>Type</div>
@@ -107,7 +119,7 @@
 
                     <div>Picture</div>
                     <td>Choose Image:</td>
-                    Upload Image <input type="file" name="imageFile">
+                    Upload Image <input type="file" name="imageFile" accept="image/x-png,image/gif,image/jpeg" >
                     <hr>
                     <div><button id="save" class="btn btn-primary">Save</button> </div>
                     <p/>

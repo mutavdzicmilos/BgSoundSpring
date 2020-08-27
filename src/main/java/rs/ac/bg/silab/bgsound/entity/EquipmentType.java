@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /**
@@ -27,15 +28,13 @@ public class EquipmentType implements Serializable {
     private int equipmentTypeID;
     @Column
     private String type;
+     @Lob
+    private byte[] equipmentPicture;
 
-    public EquipmentType(int equipmentTypeID, String type) {
+    public EquipmentType(int equipmentTypeID, String type, byte[] equipmentPicture) {
         this.equipmentTypeID = equipmentTypeID;
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return " "+type+" ";
+        this.equipmentPicture = equipmentPicture;
     }
 
     public EquipmentType() {
@@ -57,4 +56,18 @@ public class EquipmentType implements Serializable {
         this.type = type;
     }
 
+    public byte[] getEquipmentPicture() {
+        return equipmentPicture;
+    }
+
+    public void setEquipmentPicture(byte[] equipmentPicture) {
+        this.equipmentPicture = equipmentPicture;
+    }
+
+    @Override
+    public String toString() {
+        return type;
+    }
+
+  
 }

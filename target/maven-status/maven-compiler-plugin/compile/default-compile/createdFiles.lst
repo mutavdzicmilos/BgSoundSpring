@@ -12,6 +12,7 @@ rs\ac\bg\silab\bgsound\service\ProducerService.class
 rs\ac\bg\silab\bgsound\config\DatabaseConfiguration.class
 rs\ac\bg\silab\bgsound\controller\ProducerController.class
 rs\ac\bg\silab\bgsound\dao\ProducerDAO.class
+rs\ac\bg\silab\bgsound\entity\Authority.class
 rs\ac\bg\silab\bgsound\controller\RentController.class
 rs\ac\bg\silab\bgsound\dao\impl\EquipmentDAOImpl.class
 rs\ac\bg\silab\bgsound\dao\CopyDAO.class

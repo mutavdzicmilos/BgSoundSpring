@@ -11,7 +11,19 @@
 
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
-<html>
+<html>  <link rel="icon" 
+              type="image/png" 
+              href="<c:url value="/images/"/>logo.png">
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tabela').DataTable({

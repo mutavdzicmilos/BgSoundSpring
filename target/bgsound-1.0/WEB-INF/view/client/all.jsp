@@ -14,7 +14,19 @@
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
-<html>
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
         <title>All Clients</title>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -71,7 +83,7 @@
             </c:if>
 
             <div class="container-fluid">
-                <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" id="tabela">
+                <table class="table table-dark" cellspacing="0" width="100%" id="tabela">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>

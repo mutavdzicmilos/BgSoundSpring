@@ -10,7 +10,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<html>
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
         <title>View Client</title>
     
     <head><nav class="navbar navbar-inverse">
@@ -56,6 +68,7 @@
 
         <div class="container-fluid">
             <form:form action="${pageContext.request.contextPath}/client/${client.clientID}/saved" method="post" modelAttribute="client">
+                 <form:hidden path="clientID"/>
                 <div>Client name</div>
                 <div><form:input type="text" id="name" path="name"/></div>
                 <div class="text-danger">
@@ -68,7 +81,7 @@
                 </div><div>Client JMBG</div>
                 <div><form:input type="text" id="JMBG" path="JMBG"/></div>
                 <div class="text-danger">
-                    <form:errors path="name" cssClass="error" />
+                    <form:errors path="JMBG" cssClass="error" />
                 </div>
 
                 <div> Client PHONE</div>

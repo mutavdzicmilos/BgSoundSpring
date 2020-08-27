@@ -52,13 +52,16 @@ public class EquipmentDAOImpl implements EquipmentDAO {
     }
 
     @Override
-    public void setEquipment(Equipment equipment) {
-        int id= equipment.getProducer().getProducerid();
-        Producer prod=entityManager.find(Producer.class, id);
+    public void saveEquipment(Equipment equipment) {
+        int id = equipment.getProducer().getProducerid();
+        Producer prod = entityManager.find(Producer.class, id);
         equipment.setProducer(prod);
-        id= equipment.getType().getEquipmentTypeID();
-        EquipmentType type= entityManager.find(EquipmentType.class, id);
+        id = equipment.getType().getEquipmentTypeID();
+        EquipmentType type = entityManager.find(EquipmentType.class, id);
         equipment.setType(type);
+        if (equipment.getEquipmentPicture() == null || equipment.getEquipmentPicture().length == 0) {
+            equipment.setEquipmentPicture(type.getEquipmentPicture());
+        }
         entityManager.merge(equipment);
     }
 
@@ -72,12 +75,14 @@ public class EquipmentDAOImpl implements EquipmentDAO {
     @Override
     public void changeEquipment(Equipment equipment) {
 
-       int id= equipment.getProducer().getProducerid();
-        Producer prod=entityManager.find(Producer.class, id);
+        int id = equipment.getProducer().getProducerid();
+        Producer prod = entityManager.find(Producer.class, id);
         equipment.setProducer(prod);
-        id= equipment.getType().getEquipmentTypeID();
-        EquipmentType type= entityManager.find(EquipmentType.class, id);
+        id = equipment.getType().getEquipmentTypeID();
+        EquipmentType type = entityManager.find(EquipmentType.class, id);
         equipment.setType(type);
+        Equipment e= entityManager.find(Equipment.class,equipment.getEquipmentID());
+        equipment.setEquipmentPicture(e.getEquipmentPicture());
         entityManager.merge(equipment);
     }
 

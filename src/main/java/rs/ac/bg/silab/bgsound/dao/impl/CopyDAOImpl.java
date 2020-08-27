@@ -43,7 +43,10 @@ public class CopyDAOImpl implements CopyDAO {
     @Override
     public void updateCopy(Copy copy) {
         Copy c = returnByID(copy.getCopyID());
-        entityManager.merge(copy);
+        c.setWorking(copy.getWorking());
+        c.setAvailable(copy.getAvailable());
+        c.setDefect(copy.getDefect());
+        entityManager.merge(c);
     }
 
     @Override

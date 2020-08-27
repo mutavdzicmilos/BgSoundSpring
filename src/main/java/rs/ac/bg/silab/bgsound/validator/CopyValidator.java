@@ -24,7 +24,12 @@ public class CopyValidator implements Validator{
 
     @Override
     public void validate(Object o, Errors errors) {
+    Copy copy = (Copy) o;
 
+    System.out.println("Validating copy: " + copy);
+        
+        
+        
     }
     
 }

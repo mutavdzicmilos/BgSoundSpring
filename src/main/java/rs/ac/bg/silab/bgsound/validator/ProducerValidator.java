@@ -7,6 +7,7 @@ package rs.ac.bg.silab.bgsound.validator;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import rs.ac.bg.silab.bgsound.entity.Producer;
 
@@ -24,13 +25,16 @@ public class ProducerValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        /*   Rent rent = (Rent) target;
-        System.out.println("Validating rent: " + rent);
+        Producer prod = (Producer) o;
 
-        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "client.name.empty", "Morate uneti ime");
-        //  ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "client.surname.empty", "Morate uneti prezime");
+        System.out.println("Validating producer: " + o);
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "producer.name.empty", "is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "producer.email.empty", "is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "producer.phone.empty", "is required");
+
         if (errors.hasErrors()) {
             return;
-        }*/    }
-
+        }
+    }
 }

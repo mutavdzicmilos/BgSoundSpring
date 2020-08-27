@@ -11,7 +11,20 @@
 
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
-<html>
+<html>  <link rel="icon" 
+      type="image/png" 
+     href="<c:url value="/images/"/>logo.png">
+    <title>View equipment</title>
+    <style>
+        body{
+            margin-top: 0px;
+
+        }
+        .navbar{
+            margin-bottom: 0px;
+        }
+
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tabela').DataTable({
@@ -66,7 +79,8 @@
 
                 <div class="container-fluid">
                     <form:form action="${pageContext.request.contextPath}/equipment/${equipment.equipmentID}/saved" method="post" modelAttribute="equipment">
-
+                        <form:hidden path="equipmentID"/>
+                        <form:hidden path="equipmentPicture"/>
                         <div>Equipment name</div>
             <div><form:input type="text" id="name" path="name"/></div>
             <div class="text-danger">

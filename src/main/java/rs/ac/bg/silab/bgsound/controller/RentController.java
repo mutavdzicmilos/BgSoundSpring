@@ -5,7 +5,6 @@
  */
 package rs.ac.bg.silab.bgsound.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +26,6 @@ import rs.ac.bg.silab.bgsound.service.ClientService;
 import rs.ac.bg.silab.bgsound.service.CopyService;
 import rs.ac.bg.silab.bgsound.service.RentService;
 import rs.ac.bg.silab.bgsound.service.WorkerService;
-import rs.ac.bg.silab.bgsound.validator.RentValidator;
 
 /**
  *
@@ -40,24 +36,18 @@ import rs.ac.bg.silab.bgsound.validator.RentValidator;
 public class RentController {
 
     private final RentService serviceRent;
-    private final RentValidator rentValidator;
     private final CopyService copyService;
     private final ClientService clientService;
     private final WorkerService workerService;
 
     @Autowired
-    public RentController(RentService serviceRent, RentValidator rentValidator, CopyService copyService, ClientService clientService, WorkerService serviceWorker) {
+    public RentController(RentService serviceRent,CopyService copyService, ClientService clientService, WorkerService serviceWorker) {
         this.serviceRent = serviceRent;
-        this.rentValidator = rentValidator;
         this.copyService = copyService;
         this.clientService = clientService;
         this.workerService = serviceWorker;
     }
 
-    @InitBinder
-    private void initBinder(WebDataBinder binder) {
-        binder.setValidator(rentValidator);
-    }
 
     @GetMapping(value = "rent")
     public ModelAndView add() {
@@ -66,6 +56,7 @@ public class RentController {
         System.out.println("====================================================================");
 
         ModelAndView modelAndView = new ModelAndView("rent/rent");
+        modelAndView.addObject("rentObject", new Rent());
         return modelAndView;
     }
 
@@ -86,15 +77,17 @@ public class RentController {
     }
 
     @PostMapping(value = "save")
-    public String save(@ModelAttribute(name = "rentObject") @Validated Rent rent, BindingResult result, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@ModelAttribute(name = "rent") @Validated Rent rent, BindingResult result, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         System.out.println("===================================================================================");
         System.out.println("====================   RentController: save(@ModelAttribute)    ===================");
         System.out.println("===================================================================================");
         ModelAndView modelAndView = new ModelAndView();
         rent.setWorker(workerService.getWorker(request.getUserPrincipal().getName()));
+
+        System.out.println("\n\n\n"+rent+"\n\n\n\n\n");
+            System.out.println(request.getParameterNames());
         
-        System.out.println("\n\n\n\n" + rent + "\n\n\n\n\n");
-        System.out.println(getClients());
+        
         if (result.hasErrors()) {
             model.addAttribute("invalid", "One or more fields are invalid");
             return "redirect:/rent/rent";
@@ -105,7 +98,7 @@ public class RentController {
         }
     }
 
-    @ModelAttribute(name = "copies")
+    @ModelAttribute(name = "copiesAll")
     private List<Copy> getCopies() {
         return copyService.getAll();
     }
@@ -115,17 +108,9 @@ public class RentController {
 
         return clientService.returnAllClients();
     }
-
-    @ModelAttribute(name = "rentObject")
-    private Rent selectedRent() {
-        Rent r = new Rent();
-        Client c = new Client();
-        List<Copy> copies = new ArrayList<>();
-        r.setClient(c);
-        r.setCopies(copies);
-        return r;
-    }
-
+   
+    
+    
     @ModelAttribute(name = "rentsAll")
     private List<Rent> getRents() {
         return serviceRent.getAll();
