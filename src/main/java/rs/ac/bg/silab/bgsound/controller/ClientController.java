@@ -75,9 +75,17 @@ public class ClientController {
     @GetMapping(value = "/{numberId}/delete")
     public ModelAndView delete(@PathVariable(name = "numberId") int numberId) {
         System.out.println("Delete..." + numberId);
-        serviceClient.deleteClient(numberId);
-        ModelAndView modelAndView = new ModelAndView("redirect:/client/all");
+        Client cl= serviceClient.returnByID(numberId);
+        if(cl.getRents().size()==0){
+        serviceClient.deleteClient(cl);
+            System.out.println("gde sam");
+                
+         ModelAndView modelAndView = new ModelAndView("redirect:/client/all");
         modelAndView.addObject("message", "Client " + numberId + " is deleted!");
+        return modelAndView;
+        }
+        ModelAndView modelAndView = new ModelAndView("redirect:/client/all");
+        modelAndView.addObject("message", "Client " + numberId + "has rents!");
         return modelAndView;
     }
 
@@ -88,12 +96,12 @@ public class ClientController {
         System.out.println("===================================================================================");
         System.out.println(client);
         if (result.hasErrors()) {
-            model.addAttribute("invalid", "One or more fields are invalid");
+            model.addAttribute("message", "One or more fields are invalid!");
             model.addAttribute("clientObject", client);
             return "client/add";
         } else {
             serviceClient.saveClient(client);
-            redirectAttributes.addFlashAttribute("message", "Client is saved");
+            redirectAttributes.addFlashAttribute("message", "Client is saved!");
             return "redirect:/client/add";
         }
     }

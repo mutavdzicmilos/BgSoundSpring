@@ -12,7 +12,16 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
-<html>  <link rel="icon" 
+<html>  <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tabela').DataTable({
+                "paging": true // false to disable pagination (or any other option)
+            });
+            $('.dataTables_length').addClass('bs-select');
+        });
+
+    </script>
+    <link rel="icon" 
       type="image/png" 
      href="<c:url value="/images/"/>logo.png">
     <style>
@@ -26,15 +35,7 @@
 
     </style>
     <title>Rent</title>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tabela').DataTable({
-                "paging": true // false to disable pagination (or any other option)
-            });
-            $('.dataTables_length').addClass('bs-select');
-        });
-
-    </script><head><nav class="navbar navbar-inverse">
+   <head><nav class="navbar navbar-inverse">
 
         <div class="container-fluid">
             <div class="navbar-header">
@@ -75,7 +76,7 @@
         <div class="row content">
             <div class="col-sm-3 sidenav">
 
-                <form:form action="${pageContext.request.contextPath}/rent/save" enctype="multipart/form-data" method="post" modelAttribute="rentObject">
+                <form:form action="${pageContext.request.contextPath}/rent/save" enctype="multipart/form-data" method="post" modelAttribute="rent">
                     <div>Select client:</div>
                  <form:select path="client.clientID">
                 <div class="container-fluid">
@@ -115,7 +116,7 @@
                                 <th scope="col">Equipment name</th>
                                 <th scope="col">Equipment picture</th>
                                 <th scope="col">Defect</th>
-                                <th scope="col">Rent</th>
+                                <th scope="col">Equipment ID</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,9 +128,11 @@
                                          <a href="${pageContext.request.contextPath}/equipment/${m.equipment.equipmentID}/picture"  target="_blank">Show picture</a>
                                      </td>
                                     <td>${m.defect}</td>
-                                    <td align="center">  
-                                        <form:checkbox path="copies" value="${m}"/>  
-                                        
+                                    <td align="center">${m.equipment.equipmentID} 
+                                      <td>
+                                         <form:radiobutton path = "copies[${loop.index}].copyID" value = "${m.copyID}" label = "Yes"/>
+                                         <form:radiobutton path = "copies[${loop.index}].copyID" value = "${m}" label = "No" checked="true"/>
+                                                    </td>  
                                     </td>
                                 </tr>
                             </c:forEach>

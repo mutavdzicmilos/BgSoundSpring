@@ -36,7 +36,6 @@ public class Copy implements Serializable {
     private boolean available;
     private String defect;
     private Integer rentid;
-
     public Copy() {
         working = true;
         available = true;
@@ -106,10 +105,9 @@ public class Copy implements Serializable {
 
     @Override
     public String toString() {
-        return "Copy{" + "copyID=" + copyID + ", working=" + working + ", available=" + available + ", defect=" + defect + '}';
+        return "Copy{" + "copyID=" + copyID + ", working=" + working + ", available=" + available + ", defect=" + defect +'}';
     }
 
-    
    
 
 }

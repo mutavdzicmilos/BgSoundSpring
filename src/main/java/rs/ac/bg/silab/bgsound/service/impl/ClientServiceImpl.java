@@ -51,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean deleteClient(int client) {
+    public boolean deleteClient(Client client) {
         return storageClient.deleteClient(client);
 
     }

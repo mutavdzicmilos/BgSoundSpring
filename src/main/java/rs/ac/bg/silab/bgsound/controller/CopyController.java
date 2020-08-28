@@ -68,7 +68,7 @@ public class CopyController {
             return numberId + "/view";
         } else {
             serviceCopy.updateCopy(copy);
-            redirectAttributes.addFlashAttribute("message", "Copy is saved");
+            model.addAttribute("message", "Copy is saved");
             return "redirect:/copy/" + numberId + "/view";
         }
     }

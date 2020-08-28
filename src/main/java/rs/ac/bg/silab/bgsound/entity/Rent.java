@@ -54,6 +54,12 @@ public class Rent implements Serializable {
     @JoinColumn(name = "userID", referencedColumnName = "username")
     private Worker worker;
 
+    
+    public Rent() {
+        this.copies = new ArrayList<Copy>();
+    }
+    
+    
     public int getRentID() {
         return rentID;
     }
@@ -113,9 +119,6 @@ public class Rent implements Serializable {
         this.worker = worker;
     }
 
-    public Rent() {
-        this.copies = new ArrayList<>();
-    }
 
     public Rent(int rentID, Date dateFrom, Date dateTo, Client client, List<Copy> copies, Worker worker) {
         this.rentID = rentID;

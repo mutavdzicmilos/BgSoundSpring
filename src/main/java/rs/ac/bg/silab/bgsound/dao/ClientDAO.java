@@ -15,7 +15,7 @@ public interface ClientDAO {
     void saveClient(Client client);
     List<Client> returnAllClients() ;
     Client returnByID(int id);
-     boolean deleteClient(int  client) ;
+     boolean deleteClient(Client  client) ;
     Client updateClient(Client client);
     
      

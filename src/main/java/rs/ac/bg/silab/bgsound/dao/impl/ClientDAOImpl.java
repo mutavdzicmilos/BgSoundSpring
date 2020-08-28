@@ -66,8 +66,9 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
-    public boolean deleteClient(int client) {
-        entityManager.remove(returnByID(client));
+    public boolean deleteClient(Client client) {
+        
+        entityManager.remove(returnByID(client.getClientID()));
         return true;
     }
 

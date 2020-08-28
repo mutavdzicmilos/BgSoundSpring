@@ -5,6 +5,7 @@
  */
 package rs.ac.bg.silab.bgsound.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +29,7 @@ import rs.ac.bg.silab.bgsound.service.ClientService;
 import rs.ac.bg.silab.bgsound.service.CopyService;
 import rs.ac.bg.silab.bgsound.service.RentService;
 import rs.ac.bg.silab.bgsound.service.WorkerService;
+import rs.ac.bg.silab.bgsound.validator.RentValidator;
 
 /**
  *
@@ -39,13 +43,20 @@ public class RentController {
     private final CopyService copyService;
     private final ClientService clientService;
     private final WorkerService workerService;
+    private final RentValidator rentValidator;
 
     @Autowired
-    public RentController(RentService serviceRent,CopyService copyService, ClientService clientService, WorkerService serviceWorker) {
+    public RentController(RentService serviceRent,CopyService copyService, ClientService clientService, WorkerService serviceWorker,RentValidator rentValidator) {
         this.serviceRent = serviceRent;
         this.copyService = copyService;
         this.clientService = clientService;
         this.workerService = serviceWorker;
+        this.rentValidator=rentValidator;
+    }
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(rentValidator);
     }
 
 
@@ -56,7 +67,9 @@ public class RentController {
         System.out.println("====================================================================");
 
         ModelAndView modelAndView = new ModelAndView("rent/rent");
-        modelAndView.addObject("rentObject", new Rent());
+        Rent r= new Rent();
+        r.setCopies(getCopies());
+        modelAndView.addObject("rent",r);
         return modelAndView;
     }
 
@@ -76,26 +89,29 @@ public class RentController {
         return modelAndView;
     }
 
+     
     @PostMapping(value = "save")
-    public String save(@ModelAttribute(name = "rent") @Validated Rent rent, BindingResult result, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@ModelAttribute(name = "rent")@Validated Rent rent, BindingResult result, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         System.out.println("===================================================================================");
         System.out.println("====================   RentController: save(@ModelAttribute)    ===================");
         System.out.println("===================================================================================");
         ModelAndView modelAndView = new ModelAndView();
         rent.setWorker(workerService.getWorker(request.getUserPrincipal().getName()));
-
+        rent.setCopies(fix(rent.getCopies()));
+        rent.setClient(clientService.returnByID(rent.getClient().getClientID()));
         System.out.println("\n\n\n"+rent+"\n\n\n\n\n");
-            System.out.println(request.getParameterNames());
         
         
-        if (result.hasErrors()) {
-            model.addAttribute("invalid", "One or more fields are invalid");
+       /* if (result.hasErrors()) {
+             System.out.println("ovde sam1\n\n\n\n");
+            model.addAttribute("message", "One or more fields are invalid");
             return "redirect:/rent/rent";
-        } else {
+        } else {*/
+            System.out.println("ovde sam\n\n\n\n");
             serviceRent.save(rent);
             redirectAttributes.addFlashAttribute("message", "Rent is saved");
             return "redirect:/rent/rent";
-        }
+        //}
     }
 
     @ModelAttribute(name = "copiesAll")
@@ -114,5 +130,16 @@ public class RentController {
     @ModelAttribute(name = "rentsAll")
     private List<Rent> getRents() {
         return serviceRent.getAll();
+    }
+
+    private  List<Copy> fix(List<Copy> copies) {
+        List<Copy> list= new ArrayList<>();
+        for(Copy c: copies){
+            if(c.getCopyID()!=null){
+                list.add(c);
+            }
+            
+        }
+        return list;
     }
 }

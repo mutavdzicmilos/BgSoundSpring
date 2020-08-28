@@ -100,10 +100,6 @@
         </div>
 
     </div>
-    <footer class="fixed-bottom">
-  <p>User: <security:authentication property="principal.username" />
-        <br><br>
-        Role(s): <security:authentication property="principal.authorities" /></p>
-</footer>
+  
 </body>
 </html>

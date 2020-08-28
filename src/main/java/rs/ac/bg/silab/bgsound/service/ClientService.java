@@ -21,7 +21,7 @@ public interface ClientService {
 
     Client returnByID(int id);
 
-    boolean deleteClient(int client);
+    boolean deleteClient(Client client);
 
     Client updateClient(Client client);
 
