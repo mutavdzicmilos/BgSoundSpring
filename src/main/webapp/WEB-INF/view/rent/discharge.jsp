@@ -14,13 +14,22 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
 <html>  <link rel="icon" 
-      type="image/png" 
-     href="<c:url value="/images/"/>logo.png">
+              type="image/png" 
+              href="<c:url value="/images/"/>logo.png">
     <title>Discharge rents</title>
     <style>
         body{
             margin-top: 0px;
+            background-image: url("<c:url value="/images/"/>bck.jpg");
 
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-top: 0px;
         }
         .navbar{
             margin-bottom: 0px;
@@ -109,7 +118,7 @@
                                         <a class="btn btn-danger" href="<c:url value = "/rent/${rent.rentID}/delete/">
 
                                             </c:url>">Discharge</a>
-                                      
+
                                     </div>
                                 </td>
 

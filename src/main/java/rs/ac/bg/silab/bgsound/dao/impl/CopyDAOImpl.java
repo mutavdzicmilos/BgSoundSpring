@@ -34,8 +34,13 @@ public class CopyDAOImpl implements CopyDAO {
 
     @Override
     public void deleteCopy(int copy) {
-        Copy c= returnByID(copy);
+        Copy c = returnByID(copy);
         c.setEquipment(null);
+        entityManager.merge(c);
+        entityManager.flush();
+        entityManager.clear();
+
+        c = entityManager.find(Copy.class, copy);
         entityManager.remove(c);
 
     }

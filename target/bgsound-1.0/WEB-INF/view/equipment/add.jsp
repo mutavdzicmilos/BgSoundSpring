@@ -11,17 +11,30 @@
 
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <html>  <link rel="icon" 
-      type="image/png" 
-     href="<c:url value="/images/"/>logo.png">
+              type="image/png" 
+              href="<c:url value="/images/"/>logo.png">
     <style>
         body{
+            margin-top: 0px;
+            background-image: url("<c:url value="/images/"/>bck.jpg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             margin-top: 0px;
 
         }
         .navbar{
             margin-bottom: 0px;
         }
-
+        .center_div{
+            margin: 0 auto;
+            width:80% /* value of your choice which suits your alignment */
+        }
     </style>
     <title>Add equipment</title>
     <head><nav class="navbar navbar-inverse">
@@ -66,31 +79,30 @@
             <div class="alert alert-info" role="alert mb-2">${message}</div>
         </c:if>
 
+        <div class="container center_div">
+            <form:form action="${pageContext.request.contextPath}/equipment/save" enctype="multipart/form-data" method="post" modelAttribute="equipmentObject">
 
-        <form:form action="${pageContext.request.contextPath}/equipment/save" enctype="multipart/form-data" method="post" modelAttribute="equipmentObject">
+                <h4>Equipment name</h4>
+                <div><form:input type="text" id="name" path="name"/></div>
+                <div class="text-danger">
+                    <form:errors path="name" cssClass="error" />
+                </div>
 
-            <div>Equipment name</div>
-            <div><form:input type="text" id="name" path="name"/></div>
-            <div class="text-danger">
-                <form:errors path="name" cssClass="error" />
-            </div>
-
-            <div> Equipment connection</div>
-            <div><form:input type="text" id="connection" path="connection" /></div>
-            <div class="text-danger">
-                <form:errors path="connection" cssClass="error" />
-            </div><div>Specification</div>
-            <div><form:textarea type="text" id="specification" path="specification"/></div>
-            <div class="text-danger">
-                <form:errors path="specification" cssClass="error" />
-            </div>
-            <div>Number of copies</div>
-            <div><input type="number" id="copies" name="copiesNo" value="0"/></div>
+                <h4> Equipment connection</h4>
+                <div><form:input type="text" id="connection" path="connection" /></div>
+                <div class="text-danger">
+                    <form:errors path="connection" cssClass="error" />
+                </div><h4>Specification</h4>
+                <div><form:textarea resize="none" type="text" id="specification" path="specification"/></div>
+                <div class="text-danger">
+                    <form:errors path="specification" cssClass="error" />
+                </div>
+                <h4>Number of copies</h4>
+                <div><input type="number" id="copies" name="copiesNo" value="0"/></div>
 
 
-            <div>Type</div>
-            <form:select path="type.equipmentTypeID">
-                <div class="container-fluid">
+                <h4>Type</h4>
+                <form:select path="type.equipmentTypeID">
                     <c:forEach
                         items="${types}"
                         var="p"
@@ -102,36 +114,34 @@
 
                 </form:select>
 
-                <div>Producer</div>
+                <h4>Producer</h4>
                 <form:select path="producer.producerid">
-                    <div class="container-fluid">
-                        <c:forEach
-                            items="${producers}"
-                            var="p"
-                            varStatus="loop">
+                    <c:forEach
+                        items="${producers}"
+                        var="p"
+                        varStatus="loop">
 
-                            <form:option value="${p.producerid}">${p.name}</form:option>
+                        <form:option value="${p.producerid}">${p.name}</form:option>
 
-                        </c:forEach>
+                    </c:forEach>
 
-                    </form:select>
+                </form:select>
 
 
-                    <div>Picture</div>
-                    <td>Choose Image:</td>
-                    Upload Image <input type="file" name="imageFile" accept="image/x-png,image/gif,image/jpeg" >
-                    <hr>
-                    <div><button id="save" class="btn btn-primary">Save</button> </div>
-                    <p/>
-                </form:form>
+                <h4>Picture</h4>
+                <input type="file" name="imageFile" accept="image/x-png,image/gif,image/jpeg" >
+                <hr>
+                <div><button id="save" class="btn btn-primary">Save</button> </div>
+                <p/>
+            </form:form>
 
 
 
 
-
-            </div>
 
         </div>
+
+    </div>
 
 
 

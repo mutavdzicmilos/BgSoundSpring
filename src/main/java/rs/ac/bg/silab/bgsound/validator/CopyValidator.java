@@ -27,7 +27,9 @@ public class CopyValidator implements Validator{
     Copy copy = (Copy) o;
 
     System.out.println("Validating copy: " + copy);
-        
+        if(!copy.getWorking() && copy.getDefect().length()<2){
+            errors.rejectValue("defect", "copy.defect.empty", "copy defect cant be empty");
+        }
         
         
     }

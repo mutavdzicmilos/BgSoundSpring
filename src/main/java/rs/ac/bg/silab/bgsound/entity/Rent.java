@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -37,10 +38,12 @@ public class Rent implements Serializable {
     private int rentID;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(javax.persistence.TemporalType.DATE)
+    @NotNull(message="set please")
     private Date dateFrom;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(javax.persistence.TemporalType.DATE)
+     @NotNull(message="set please")
     private Date dateTo;
 
     @ManyToOne(cascade = CascadeType.MERGE)

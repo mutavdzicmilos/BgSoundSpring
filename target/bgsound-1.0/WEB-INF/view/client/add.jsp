@@ -11,12 +11,25 @@
     <title>Add client</title>
     <style>
         body{
+            background-image: url("<c:url value="/images/"/>bck.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
             margin-top: 0px;
 
         }
         .navbar{
             margin-bottom: 0px;
         }
+        .center_div{
+    margin: 0 auto;
+    width:80% /* value of your choice which suits your alignment */
+}
 
     </style>
     <title>Add Client</title>
@@ -63,32 +76,31 @@
         </div>
     </nav></head>
 <body>
-    <div class="row content">
+ <div class="container center_div">
 
         <c:if test="${not empty message}">
             <div class="alert alert-info" role="alert mb-2">${message}</div>
         </c:if>
 
-        <div class="container-fluid">
             <form:form action="${pageContext.request.contextPath}/client/save" method="post" modelAttribute="clientObject">
 
-                <div>Client name</div>
+                <h4>Client name:</h4>
                 <div><form:input type="text" id="name" path="name"/></div>
                 <div class="text-danger">
                     <form:errors path="name" cssClass="error" />
                 </div>
 
-                <div> Client surname:</div>
+                <h4> Client surname:</h4>
                 <div><form:input type="text" id="surname" path="surname" /></div>
                 <div class="text-danger">
                     <form:errors path="surname" cssClass="error" />
-                </div><div>Client JMBG</div>
+                </div><h4>Client JMBG:</h4>
                 <div><form:input type="text" id="JMBG" path="JMBG"/></div>
                 <div class="text-danger">
                     <form:errors path="JMBG" cssClass="error" />
                 </div>
 
-                <div> Client PHONE</div>
+                <h4> Client phone:</h4>
                 <div><form:input type="text" id="phone" path="phone" /></div>
                 <div class="text-danger">
                     <form:errors path="phone" cssClass="error" />
@@ -97,7 +109,6 @@
                 <div><button id="save" class=" btn btn-primary">Save</button> </div>
                 <p/>
             </form:form>
-        </div>
 
     </div>
   

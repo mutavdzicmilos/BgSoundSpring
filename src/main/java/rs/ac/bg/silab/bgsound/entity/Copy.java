@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Table(name = "copy")
 public class Copy implements Serializable {
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE},fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "equipmentid")
     private Equipment equipment;
     @Id

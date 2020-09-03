@@ -38,13 +38,10 @@ public class ClientDAOImpl implements ClientDAO {
     @Transactional(propagation = Propagation.REQUIRED)//ako postoi u okviru nje, ako ne bez
     @Override
     public List<Client> returnAllClients() {
-        System.out.println("TransactionSynchronizationManager.isActualTransactionActive(): " + TransactionSynchronizationManager.isActualTransactionActive());
-        System.out.println("TransactionAspectSupport.currentTransactionStatus(): " + TransactionAspectSupport.currentTransactionStatus().isNewTransaction());
         if (TransactionSynchronizationManager.isActualTransactionActive()) {
             TransactionStatus status = TransactionAspectSupport.currentTransactionStatus();
         }
 
-        System.out.println("com.fon.silab.spring.springjpa.repository.impl.UserRepositoryImpl.getAll()");
         String query = "select c from Client c";
               return entityManager.createQuery(query, Client.class).getResultList();
 
@@ -67,7 +64,6 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public boolean deleteClient(Client client) {
-        
         entityManager.remove(returnByID(client.getClientID()));
         return true;
     }

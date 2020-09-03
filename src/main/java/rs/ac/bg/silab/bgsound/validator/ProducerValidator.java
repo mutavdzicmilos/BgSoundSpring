@@ -37,7 +37,7 @@ public class ProducerValidator implements Validator {
             return;
         }
           if (!prod.getPhone().matches("(\\+[0-9]{3}|0)[0-9]{5,10}")) {
-            errors.rejectValue("phone", "client.phone.size", "Only numbers needed");
+            errors.rejectValue("phone", "producer.phone.size", "Only numbers needed");
         }
     }
 }

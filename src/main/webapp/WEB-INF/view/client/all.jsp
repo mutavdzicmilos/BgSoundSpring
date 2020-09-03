@@ -20,7 +20,16 @@
     <style>
         body{
             margin-top: 0px;
+ background-image: url("<c:url value="/images/"/>beograd.jpg");
 
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+            margin-top: 0px;
         }
         .navbar{
             margin-bottom: 0px;
@@ -83,7 +92,7 @@
             </c:if>
 
             <div class="container-fluid">
-                <table class="table table-dark" cellspacing="0" width="100%" id="tabela">
+                <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" id="tabela">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>

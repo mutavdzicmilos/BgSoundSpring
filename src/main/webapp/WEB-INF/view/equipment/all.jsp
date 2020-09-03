@@ -22,7 +22,16 @@
     <style>
         body{
             margin-top: 0px;
+ background-image: url("<c:url value="/images/"/>beograd.jpg");
 
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+            margin-top: 0px;
         }
         .navbar{
             margin-bottom: 0px;

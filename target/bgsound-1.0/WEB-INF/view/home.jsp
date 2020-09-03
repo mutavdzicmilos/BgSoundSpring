@@ -15,9 +15,8 @@
     <title>BgSound Home page</title>
     <style>
         body{
-           
             margin-top: 0px;
-
+            background-color: darkgrey;
         }
         .navbar{
             margin-bottom: 0px;

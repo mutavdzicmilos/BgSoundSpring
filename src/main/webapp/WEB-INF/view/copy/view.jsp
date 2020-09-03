@@ -11,13 +11,24 @@
 
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.21/datatables.min.js"></script>
 
-<html>  <link rel="icon" 
-              type="image/png" 
-              href="<c:url value="/images/"/>logo.png">
+<html><title>View copy</title>
+
+    <link rel="icon" 
+          type="image/png" 
+          href="<c:url value="/images/"/>logo.png">
     <style>
         body{
             margin-top: 0px;
+            background-image: url("<c:url value="/images/"/>bck.jpg");
 
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-top: 0px;
         }
         .navbar{
             margin-bottom: 0px;
@@ -94,8 +105,9 @@
                             <td><form:radiobutton path="working" value="True" />True 
                                 <form:radiobutton
                                     path="working" value="False" />False</td>
-                            <td><form:errors path="working" cssClass="error" /></td>
-
+                            <div class="text-danger">
+                                <form:errors path="working" cssClass="error" />
+                            </div>
                         </div>
                         <div>Defect</div>
                         <div><form:textarea type="text" id="defect" path="defect"/></div>

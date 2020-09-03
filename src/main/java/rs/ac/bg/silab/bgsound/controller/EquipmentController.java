@@ -2,14 +2,9 @@ package rs.ac.bg.silab.bgsound.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,13 +20,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import rs.ac.bg.silab.bgsound.entity.Copy;
 import rs.ac.bg.silab.bgsound.entity.Equipment;
 import rs.ac.bg.silab.bgsound.entity.EquipmentType;
 import rs.ac.bg.silab.bgsound.entity.Producer;
@@ -114,6 +108,14 @@ public class EquipmentController {
     @GetMapping(value = "/{numberId}/delete")
     public ModelAndView delete(@PathVariable(name = "numberId") int numberId) {
         System.out.println("Delete..." + numberId);
+        Equipment e = serviceEquipment.getByID(numberId);
+        for (Copy c : e.getCopies()) {
+            if (c.getRentid() != null) {
+                ModelAndView modelAndView = new ModelAndView("redirect:/equipment/all");
+                modelAndView.addObject("message", "Equipment " + numberId + " cant be deleted!");
+                return modelAndView;
+            }
+        }
         serviceEquipment.delete(numberId);
         ModelAndView modelAndView = new ModelAndView("redirect:/equipment/all");
         modelAndView.addObject("message", "Equipment " + numberId + " is deleted!");
@@ -121,13 +123,13 @@ public class EquipmentController {
     }
 
     @PostMapping(value = "save")
-    public String save(  @Validated  @ModelAttribute(name = "equipmentObject")Equipment equipment, BindingResult result, MultipartHttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@Validated @ModelAttribute(name = "equipmentObject") Equipment equipment, BindingResult result, MultipartHttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         System.out.println("===================================================================================");
         System.out.println("====================   EquipmentController: save(@ModelAttribute)    ===================");
         System.out.println("===================================================================================");
         System.out.println(equipment + "\n\n\n\n");
         if (result.hasErrors()) {
-            model.addAttribute("invalid", "One or more fields are invalid");
+            model.addAttribute("message", "One or more fields are invalid");
             model.addAttribute("equipmentObject", equipment);
             return "equipment/add";
         } else {

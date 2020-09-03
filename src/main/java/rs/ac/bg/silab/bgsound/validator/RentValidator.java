@@ -26,7 +26,19 @@ public class RentValidator implements Validator {
     public void validate(Object target, Errors errors) {
        Rent rent = (Rent) target;
         System.out.println("Validating rent: " + rent);
-
+        if(rent.getDateTo()==null){
+        errors.rejectValue("dateTo","rent.dateTo.empty","dateTo cant be null" );
+        }
+        if(rent.getDateFrom()==null){
+        errors.rejectValue("dateFrom","rent.dateFrom.empty","dateFrom cant be null" );
+        }
         
+        if(errors.getAllErrors().size()>1){
+            return;
+        }
+        if(rent.getDateTo().getTime()-rent.getDateFrom().getTime()<0){
+           errors.rejectValue("dateTo","rent.dateTo.empty","must be after" );
+               errors.rejectValue("dateFrom","rent.dateFrom.empty","must be before" );
+        }
     }
 }

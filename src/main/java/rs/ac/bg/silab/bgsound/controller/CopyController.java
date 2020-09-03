@@ -61,15 +61,15 @@ public class CopyController {
         System.out.println("===================================================================================");
         System.out.println(copy);
         copy.setCopyID(numberId);
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("redirect:/copy/"+numberId+"/view");
         if (result.hasErrors()) {
-            model.addAttribute("invalid", "One or more fields are invalid");
-            model.addAttribute("copy", copy);
-            return numberId + "/view";
+            model.addAttribute("message", "One or more fields are invalid");
+           model.addAttribute("copy", copy);
+           return "copy/view";
         } else {
             serviceCopy.updateCopy(copy);
             model.addAttribute("message", "Copy is saved");
-            return "redirect:/copy/" + numberId + "/view";
+            return "copy/view";
         }
     }
     
@@ -77,7 +77,7 @@ public class CopyController {
     @GetMapping(value = "/{numberId}/delete")
     public ModelAndView delete(@PathVariable(name = "numberId") int numberId) {
         System.out.println("Delete..." + numberId+"\n\n\n\n\n");
-        serviceCopy.deleteCopy(numberId);
+        serviceCopy.deleteCopy((numberId));
         ModelAndView modelAndView = new ModelAndView("redirect:/equipment/all");
         modelAndView.addObject("message", "Copy " + numberId + " is deleted!");
         return modelAndView;

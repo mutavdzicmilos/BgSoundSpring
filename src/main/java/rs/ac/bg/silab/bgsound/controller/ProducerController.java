@@ -58,7 +58,7 @@ public class ProducerController {
         } else {
             producerService.save(producer);
             model.addAttribute("message", "Producer is saved");
-            return "redirect:/producer/add";
+            return "producer/add";
         }
     }
 

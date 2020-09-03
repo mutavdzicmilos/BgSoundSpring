@@ -25,10 +25,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import rs.ac.bg.silab.bgsound.entity.Client;
 import rs.ac.bg.silab.bgsound.entity.Copy;
 import rs.ac.bg.silab.bgsound.entity.Rent;
+import rs.ac.bg.silab.bgsound.entity.Worker;
 import rs.ac.bg.silab.bgsound.service.ClientService;
 import rs.ac.bg.silab.bgsound.service.CopyService;
 import rs.ac.bg.silab.bgsound.service.RentService;
-import rs.ac.bg.silab.bgsound.service.WorkerService;
 import rs.ac.bg.silab.bgsound.validator.RentValidator;
 
 /**
@@ -42,15 +42,13 @@ public class RentController {
     private final RentService serviceRent;
     private final CopyService copyService;
     private final ClientService clientService;
-    private final WorkerService workerService;
     private final RentValidator rentValidator;
 
     @Autowired
-    public RentController(RentService serviceRent,CopyService copyService, ClientService clientService, WorkerService serviceWorker,RentValidator rentValidator) {
+    public RentController(RentService serviceRent,CopyService copyService, ClientService clientService,RentValidator rentValidator) {
         this.serviceRent = serviceRent;
         this.copyService = copyService;
         this.clientService = clientService;
-        this.workerService = serviceWorker;
         this.rentValidator=rentValidator;
     }
 
@@ -82,11 +80,16 @@ public class RentController {
 
     @GetMapping(value = "/{numberId}/delete")
     public ModelAndView delete(@PathVariable(name = "numberId") int numberId) {
-        System.out.println("Delete..." + numberId);
+        if(numberId!=0){
+            System.out.println("Delete..." + numberId);
         serviceRent.discharge(numberId);
         ModelAndView modelAndView = new ModelAndView("redirect:/rent/discharge");
         modelAndView.addObject("message", "Rent " + numberId + " is discharged!");
-        return modelAndView;
+        return modelAndView; 
+        }
+         ModelAndView modelAndView = new ModelAndView("redirect:/rent/discharge");
+        modelAndView.addObject("message", "Rent " + numberId + " cant be discharged!");
+        return modelAndView; 
     }
 
      
@@ -96,22 +99,24 @@ public class RentController {
         System.out.println("====================   RentController: save(@ModelAttribute)    ===================");
         System.out.println("===================================================================================");
         ModelAndView modelAndView = new ModelAndView();
-        rent.setWorker(workerService.getWorker(request.getUserPrincipal().getName()));
+        Worker w = new Worker();
+        w.setUsername(request.getUserPrincipal().getName());
+        rent.setWorker(w);
         rent.setCopies(fix(rent.getCopies()));
         rent.setClient(clientService.returnByID(rent.getClient().getClientID()));
         System.out.println("\n\n\n"+rent+"\n\n\n\n\n");
+        System.out.println(result.getAllErrors().size());
         
-        
-       /* if (result.hasErrors()) {
-             System.out.println("ovde sam1\n\n\n\n");
+        if (result.hasErrors() || rent.getCopies().isEmpty()) {
+            model.addAttribute("rent", rent);
             model.addAttribute("message", "One or more fields are invalid");
-            return "redirect:/rent/rent";
-        } else {*/
+            return "rent/rent";
+        } else {
             System.out.println("ovde sam\n\n\n\n");
             serviceRent.save(rent);
             redirectAttributes.addFlashAttribute("message", "Rent is saved");
             return "redirect:/rent/rent";
-        //}
+        }
     }
 
     @ModelAttribute(name = "copiesAll")

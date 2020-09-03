@@ -68,7 +68,16 @@ public class ClientController {
     @GetMapping(value = "/{numberId}/view")
     public ModelAndView view(@PathVariable(name = "numberId") int numberId) {
         ModelAndView modelAndView = new ModelAndView("client/view");
-        modelAndView.addObject("client", serviceClient.returnByID(numberId));
+        Client c= serviceClient.returnByID(numberId);
+        if(c!=null){
+                    modelAndView.addObject("client", serviceClient.returnByID(numberId));
+                  
+        }else{
+              modelAndView.addObject("client", new Client());
+                modelAndView.addObject("message","Failed to find client");
+        }
+        
+
         return modelAndView;
     }
 

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import rs.ac.bg.silab.bgsound.dao.RentDAO;
 import rs.ac.bg.silab.bgsound.entity.Client;
 import rs.ac.bg.silab.bgsound.entity.Rent;
+import rs.ac.bg.silab.bgsound.entity.Worker;
 
 /**
  *
@@ -28,7 +29,11 @@ public class RentDAOImpl implements RentDAO {
     
     @Override
     public void discharge(int rent) {
-        entityManager.remove(entityManager.find(Rent.class, rent));
+        System.out.println("brisem\n\n\n\n");
+        Rent r= entityManager.find(Rent.class, rent);
+        r.getClient().setRents(null);
+        System.out.println(r+"\n\n\n");
+      entityManager.remove(r);
         
     }
     
@@ -51,7 +56,9 @@ public class RentDAOImpl implements RentDAO {
     public void save(Rent rent) {
         System.out.println(rent + "\n\n\n\n\n");
         Client c=entityManager.find(Client.class, rent.getClient().getClientID());
+        Worker w=entityManager.find(Worker.class, rent.getWorker().getUsername());
         rent.setClient(c);
+        rent.setWorker(w);
         entityManager.merge(rent);
     }
     

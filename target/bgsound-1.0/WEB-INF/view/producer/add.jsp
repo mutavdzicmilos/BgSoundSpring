@@ -17,11 +17,24 @@
     <style>
         body{
             margin-top: 0px;
+ background-image: url("<c:url value="/images/"/>bck.jpg");
 
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+            margin-top: 0px;
         }
         .navbar{
             margin-bottom: 0px;
         }
+        .center_div{
+    margin: 0 auto;
+    width:80% /* value of your choice which suits your alignment */
+}
 
     </style><head><nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -64,24 +77,25 @@
             <div class="alert alert-info" role="alert mb-2">${message}</div>
         </c:if>
 
-        <div class="container-fluid">
+        <div class="container center-div">
             <form:form action="${pageContext.request.contextPath}/producer/save" method="post" modelAttribute="producerObject">
 
-                <div>Producer name</div>
+                <h4>Producer name</h4>
                 <div><form:input type="text" id="name" path="name"/></div>
                 <div class="text-danger">
                     <form:errors path="name" cssClass="error" />
                 </div>
-                <div>Producer email</div>
+                <h4>Producer email</h4>
                 <div><form:input type="text" id="email" path="email"/></div>
                 <div class="text-danger">
                     <form:errors path="email" cssClass="error" />
                 </div>
-                <div>Producer phone</div>
+                <h4>Producer phone</h4>
                 <div><form:input type="text" id="phone" path="phone"/></div>
                 <div class="text-danger">
                     <form:errors path="phone" cssClass="error" />
                 </div>
+                <br>
 
                 <div><button id="save" class="btn btn-primary">Save</button> </div>
                 <p/>
