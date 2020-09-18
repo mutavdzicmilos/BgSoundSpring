@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rs.ac.bg.silab.bgsound.dao.ClientDAO;
 import rs.ac.bg.silab.bgsound.dao.CopyDAO;
 import rs.ac.bg.silab.bgsound.entity.Copy;
 import rs.ac.bg.silab.bgsound.service.CopyService;

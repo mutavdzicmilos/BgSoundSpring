@@ -1,5 +1,6 @@
 package rs.ac.bg.silab.bgsound.controller;
 
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -161,8 +162,8 @@ public class EquipmentController {
             return "equipment/all";
         } else {
             serviceEquipment.changeEquipment(equipment);
-            model.addAttribute("message", "Equipment is saved");
-            return "equipment/all";
+            redirectAttributes.addFlashAttribute("message", "Equipment is saved");
+            return "redirect:/equipment/all";
         }
     }
 

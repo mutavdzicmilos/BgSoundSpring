@@ -41,7 +41,7 @@ public class ClientValidator
             errors.rejectValue("JMBG", "client.JMBG.size", "13 numbers needed");
         }
       
-        if (!client.getPhone().matches("(\\+[0-9]{3}|0)[0-9]{5,10}")) {
+        if (!client.getPhone().matches("(\\+[0-9]{3}|0)[0-9]{5,15}")) {
             errors.rejectValue("phone", "client.phone.size", "Only numbers needed");
         }
         
