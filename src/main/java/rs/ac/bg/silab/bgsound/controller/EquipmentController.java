@@ -149,7 +149,7 @@ public class EquipmentController {
     }
 
     @PostMapping(value = "/{numberId}/saved")
-    public String saved(@ModelAttribute(name = "equipment") @Validated Equipment equipment, BindingResult result, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes, @PathVariable(name = "numberId") int numberId) {
+    public ModelAndView saved(@ModelAttribute(name = "equipment") @Validated Equipment equipment, BindingResult result, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes, @PathVariable(name = "numberId") int numberId) {
         System.out.println("===================================================================================");
         System.out.println("====================   EquipmentController: save(@ModelAttribute)    ===================");
         System.out.println("===================================================================================");
@@ -157,13 +157,16 @@ public class EquipmentController {
         int no = Integer.valueOf(request.getParameter("copiesNo"));
         equipment.setCopies(no);
         if (result.hasErrors()) {
-            model.addAttribute("message", "Error Saving: One or more fields are invalid");
+            ModelAndView modelAndView = new ModelAndView("equipment/all");
+                modelAndView.addObject("message", "Error Saving: One or more fields are invalid");
             model.addAttribute("equipment", equipment);
-            return "equipment/all";
-        } else {
+            return modelAndView;
+        } else 
+        {
             serviceEquipment.changeEquipment(equipment);
-            redirectAttributes.addFlashAttribute("message", "Equipment is saved");
-            return "redirect:/equipment/all";
+             ModelAndView modelAndView = new ModelAndView("redirect:/equipment/all");
+                modelAndView.addObject("message", "Equipment is saved");
+            return modelAndView;
         }
     }
 
